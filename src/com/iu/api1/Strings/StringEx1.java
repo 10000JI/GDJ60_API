@@ -1,4 +1,4 @@
-package com.iu.api1.objects;
+package com.iu.api1.Strings;
 
 public class StringEx1 {
 
@@ -7,6 +7,7 @@ public class StringEx1 {
 		String phone = "010-1234-5678";
 		boolean check = true;
 		int idx=0;
+		
 		while(check) {
 			idx = phone.indexOf('-',idx);
 			if(idx != -1) {
