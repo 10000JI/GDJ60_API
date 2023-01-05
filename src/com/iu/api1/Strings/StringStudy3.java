@@ -11,7 +11,9 @@ public class StringStudy3 {
 		System.out.println(str3==str4);
 		System.out.println(str1==str3);
 		
-		str1 = str1+"world"+str2;
+		str1 = str1+"world"+str2+str3+str4;
+		//객체 최소 4개 만들어짐
+		//권장하지 않는 방법
 		
 	}
 
