@@ -13,8 +13,12 @@ public class Ex3Main {
 //		}
 //		weatherView.view(datas);
 		
-		WeatherController wc = new WeatherController();
-		wc.start();
+//		WeatherController wc =new WeatherController();
+//		wc.start();
+//		//wc라는 변수에 객체의 주소를 만들기 때문에 재사용이 가능하다
+		
+		new WeatherController().start();
+		//한번만 사용할때
 		
 		System.out.println("finish");
 	}
