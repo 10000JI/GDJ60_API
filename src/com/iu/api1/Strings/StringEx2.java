@@ -30,15 +30,14 @@ public class StringEx2 {
 				flag=!flag;
 				break;
 			}
-//			//비정상파일임을 알리는 또 다른코드
-//			if(names.length-1 == i) {
-//				System.out.println("비정상 파일이다");
-//			}
 		}
+//		//비정상파일임을 알리는 또 다른코드
+//		if(names.length-1 == i) {
+//			System.out.println("비정상 파일이다");
+//		}
 		if(flag) {
 			System.out.println("비정상 파입이다");
 		}
 		System.out.println("Finish");
 	}
-
 }
