@@ -12,14 +12,22 @@ public class WeatherController {
 	//4.지역날씨추가
 	//5.지역날씨삭제
 	//6.종	 료
-	public void start() {
-		Scanner sc = new Scanner(System.in);
-		WeatherData weatherData =new WeatherData();
-		WeatherDTO[] datas = weatherData.init();
+	private Scanner sc;
+	private WeatherData weatherData;
+	private WeatherView weatherView;
+	private WeatherInput weatherInput = new WeatherInput();
+	private WeatherDTO[] weatherDTOs; //null값 줘야 1번 초기화 진행됨
+	//개발자스럽게 private 애용하자
+	
+	public WeatherController() {
+		this.sc = new Scanner(System.in);
+		this.weatherData = new WeatherData();
+		this.weatherView = new WeatherView();
+		this.weatherInput = new WeatherInput();
 		
-		WeatherView weatherView = new WeatherView();
-		WeatherInput weatherInput = new WeatherInput();
-		
+	}
+	
+	public void start() {		
 		while(true) {
 			System.out.println("1.날씨정보초기화");
 			System.out.println("2.전국날씨정보");
@@ -30,25 +38,25 @@ public class WeatherController {
 			int num = sc.nextInt();
 			
 			if(num==1) {
-				weatherData.init();
+				weatherDTOs = weatherData.init();
 				System.out.println("초기화 완료되었습니다.");
 			}else if(num==2) {
-				weatherView.view(datas);
+				weatherView.view(weatherDTOs);
 			}else if(num==3) {
-				WeatherDTO weatherDTO = weatherInput.search(datas);
+				WeatherDTO weatherDTO = weatherInput.search(weatherDTOs);
 				if(weatherDTO != null) {
 					weatherView.view(weatherDTO);
 				}else {
 					System.out.println("그런 지역은 없어요!");
 				}
 			}else if(num==4) {
-				datas = weatherInput.add(datas);
+				weatherDTOs = weatherInput.add(weatherDTOs);
 			}else if(num==5) {
-				datas = weatherInput.remove(datas);
+				weatherDTOs = weatherInput.remove(weatherDTOs);
 			}else if(num==6) {
 				break;
 			}else {
-				
+				System.out.println("다시 숫자를 입력하세요");
 			}
 		}
 	}

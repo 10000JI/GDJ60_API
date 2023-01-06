@@ -3,13 +3,14 @@ package com.iu.api1.Strings.ex3;
 import java.util.Scanner;
 
 public class WeatherInput {
+	private Scanner sc;
 	
 	//search
 	//배열을 받고, 키보드로부터 검색할 도시명을 입력 받음
 	//찾은 DTO를 리턴 -> Controller에 해당 지역 정보들 출력
 	//없으면 null값 리턴
 	public WeatherDTO search(WeatherDTO[] datas) {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		System.out.println("지역을 입력하세요: ");
 		String city = sc.next();
 		WeatherDTO weatherDTO=null;
@@ -50,7 +51,7 @@ public class WeatherInput {
 	//배열에서 삭제하고 배열을 리턴
 	public WeatherDTO[] remove(WeatherDTO[] datas){
 		WeatherDTO[] datas2 = new WeatherDTO[datas.length-1];
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		System.out.print("삭제할 지역을 입력하세요: ");
 		String city = sc.next();
 		int idx = 0;
