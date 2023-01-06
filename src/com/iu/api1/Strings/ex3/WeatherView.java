@@ -16,7 +16,7 @@ public class WeatherView {
 	
 	//하나의정보
 	public void view(WeatherDTO weatherDTO) {
-		//오버라이딩
+		//오버로딩
 		System.out.println("지역: "+ weatherDTO.getCity());
 		System.out.println("기온: "+ weatherDTO.getGion());
 		System.out.println("날씨: "+ weatherDTO.getStatus());

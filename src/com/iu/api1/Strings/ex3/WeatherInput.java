@@ -24,8 +24,7 @@ public class WeatherInput {
 			}
 		}
 		return weatherDTO;
-	}
-	
+	}	
 	
 	//add
 	//배열을 받고, 키보드로부터 정보들을 입력 받음
