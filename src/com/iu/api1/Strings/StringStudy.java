@@ -5,15 +5,13 @@ import java.util.Scanner;
 public class StringStudy {
 
 	public static void main(String[] args) {
-		System.out.println(String.CASE_INSENSITIVE_ORDER);
+//		System.out.println(String.CASE_INSENSITIVE_ORDER);
 		
 		String str = new String("abc");
 		String str2 = "abc";
 		
 		System.out.println(str == str2);
-		
-		boolean check = str.equals(str2);	
-		System.out.println(check);
+		System.out.println(str.equals(str2));
 		
 		char ch = str2.charAt(1);
 		System.out.println("Char: "+ch);
