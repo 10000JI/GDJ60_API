@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class WeatherInput {
 	private Scanner sc;
 	
+	public WeatherInput() {
+		this.sc = new Scanner(System.in);
+	}
+	
 	//search
 	//배열을 받고, 키보드로부터 검색할 도시명을 입력 받음
 	//찾은 DTO를 리턴 -> Controller에 해당 지역 정보들 출력
@@ -28,11 +32,10 @@ public class WeatherInput {
 	//배열에 추가하고 배열을 리턴
 	public WeatherDTO[] add(WeatherDTO[] datas){
 		WeatherDTO[] datas2 = new WeatherDTO[datas.length+1];
+		WeatherDTO weatherDTO = new WeatherDTO();
 		for(int i=0;i<datas.length;i++) {
 			datas2[i] = datas[i];
 		}
-		WeatherDTO weatherDTO = new WeatherDTO();
-		Scanner sc = new Scanner(System.in);
 		System.out.print("지역을 입력하세요: ");
 		weatherDTO.setCity(sc.next());
 		System.out.print("기온을 입력하세요: ");
@@ -42,8 +45,7 @@ public class WeatherInput {
 		System.out.print("미세먼지를 입력하세요: ");
 		weatherDTO.setMise(sc.next());
 		datas2[datas.length] = weatherDTO;
-		datas = datas2;
-		return datas;
+		return datas2;
 	}
 	
 	//remove

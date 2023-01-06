@@ -15,7 +15,7 @@ public class WeatherController {
 	private Scanner sc;
 	private WeatherData weatherData;
 	private WeatherView weatherView;
-	private WeatherInput weatherInput = new WeatherInput();
+	private WeatherInput weatherInput;
 	private WeatherDTO[] weatherDTOs; //null값 줘야 1번 초기화 진행됨
 	//개발자스럽게 private 애용하자
 	
