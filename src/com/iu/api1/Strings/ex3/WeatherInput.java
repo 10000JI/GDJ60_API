@@ -18,7 +18,7 @@ public class WeatherInput {
 		String city = sc.next().toUpperCase();
 		WeatherDTO weatherDTO=null;
 		for(int i=0;i<datas.length;i++) {
-			if(datas[i].getCity().toUpperCase().equals(city.toUpperCase())) {
+			if(datas[i].getCity().toUpperCase().equals(city)) {
 				weatherDTO = datas[i];
 				break;
 			}
