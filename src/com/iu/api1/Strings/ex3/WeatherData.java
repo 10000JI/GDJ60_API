@@ -19,9 +19,9 @@ public class WeatherData {
 			//증감식에 i가 4씩 증가한다
 			WeatherDTO weatherDTO = new WeatherDTO();
 			weatherDTO.setCity(datas[i]);
-			weatherDTO.setGion(datas[i+1]);
+			weatherDTO.setGion(Integer.parseInt(datas[i+1]));
 			weatherDTO.setStatus(datas[i+2]);
-			weatherDTO.setMise(datas[i+3]);
+			weatherDTO.setMise(Integer.parseInt(datas[i+3]));
 			weathers[idx] =weatherDTO;
 			idx++;
 			}

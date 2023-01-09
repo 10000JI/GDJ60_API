@@ -39,11 +39,11 @@ public class WeatherInput {
 		System.out.print("지역을 입력하세요: ");
 		weatherDTO.setCity(sc.next());
 		System.out.print("기온을 입력하세요: ");
-		weatherDTO.setGion(sc.next());
+		weatherDTO.setGion(sc.nextInt());
 		System.out.print("날씨를 입력하세요: ");
 		weatherDTO.setStatus(sc.next());
 		System.out.print("미세먼지를 입력하세요: ");
-		weatherDTO.setMise(sc.next());
+		weatherDTO.setMise(sc.nextInt());
 		datas2[datas.length] = weatherDTO;
 		return datas2;
 	}

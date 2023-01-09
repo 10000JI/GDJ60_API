@@ -3,19 +3,19 @@ package com.iu.api1.Strings.ex3;
 public class WeatherDTO {
 	
 	private String city;
-	private String gion;
+	private int gion;
 	private String status;
-	private String mise;
+	private int mise;
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getGion() {
+	public int getGion() {
 		return gion;
 	}
-	public void setGion(String gion) {
+	public void setGion(int gion) {
 		this.gion = gion;
 	}
 	public String getStatus() {
@@ -24,13 +24,11 @@ public class WeatherDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getMise() {
+	public int getMise() {
 		return mise;
 	}
-	public void setMise(String mise) {
+	public void setMise(int mise) {
 		this.mise = mise;
 	}
-	
-	
 	
 }
