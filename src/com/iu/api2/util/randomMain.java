@@ -7,8 +7,7 @@ import java.util.Random;
 
 public class randomMain {
 	public static void main(String[] args) {
-		HashSet<Integer> hs = null;
-		ArrayList<Integer> ar = new ArrayList<>();
+		HashSet<Integer> hs = new HashSet<>();
 		Random random = new Random();
 		
 		//1000원 로또 구매 1~45 번호 6개를 랜덤하게 추출
@@ -20,30 +19,15 @@ public class randomMain {
 		//5번째 뽑은 애는 4번 비교
 		//6번째 뽑은 애는 6번 비교
 		
-//		int num = random.nextInt(9)+1;
-//		System.out.println(num);
-		int idx=1;
-		ar.add(random.nextInt(45)+1);
-		while(true) {
+		while(hs.size()!=6) {
 			int n = random.nextInt(45)+1;
-//			hs = new HashSet<>();
-			if(ar.get(idx)==n) {
-				continue;
-			}
-			ar.add(n);
-			idx++;
-			for(int i=0;i<ar.size();i++) {
-				System.out.println(ar.get(i));
-			}
-			if(ar.size()==5) {
-				break;
-			}
-//			Iterator<Integer> is = hs.iterator();
-//			
-//			while(is.hasNext()) {
-//				Integer num1 = is.next();
-//				System.out.println(num1);
-//				if()
+			hs.add(n);
+		}
+		
+		Iterator<Integer> is = hs.iterator();
+		while(is.hasNext()) {
+			Integer num1 = is.next();
+			System.out.println(num1);
 		}		
 	}		
 }

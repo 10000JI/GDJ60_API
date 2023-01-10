@@ -27,7 +27,6 @@ public class SetMain {
 		//다형성
 		//변수 선언
 		Iterator<Integer> is = hs.iterator();
-		//길이를 메소드로 바로 알 수는 없다
 		while(is.hasNext()) {
 			Integer num = is.next();
 			//auto-box로 int형으로 선언도 가능
