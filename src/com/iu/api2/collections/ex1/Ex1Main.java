@@ -1,5 +1,7 @@
 package com.iu.api2.collections.ex1;
 
+import java.util.ArrayList;
+
 public class Ex1Main {
 
 	public static void main(String[] args) {
@@ -10,6 +12,18 @@ public class Ex1Main {
 		//4.학생정보추가
 		//5.학생정보삭제(이름)
 		//6.프로그램 종료
+		StudentController sc = new StudentController();
+		sc.start();
+		
+//		int[] nums = new int[3];
+//		for(int n:nums) {
+//			
+//		}
+		//향상된 for
+		//for(요소의자료형 변수 : 자료구조이름)
+//		for (StudentDTO studentDTO : ar) {
+//			
+//		}
 	}
 
 }
