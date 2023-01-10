@@ -25,6 +25,7 @@ public class StringToken1 {
 
 			String t2 = st.nextToken();
 			nationDTO.setCity(t2);
+			System.out.println(nationDTO.getCity());
 		}
 		//여러개의 데이터를 다룰 때는 Tokenizer가 편함(ex> Korea,서울,USA,워싱턴)
 	}
