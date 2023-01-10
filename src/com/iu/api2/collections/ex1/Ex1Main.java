@@ -12,14 +12,8 @@ public class Ex1Main {
 		//4.학생정보추가
 		//5.학생정보삭제(이름)
 		//6.프로그램 종료
-		StudentDAO dao = new StudentDAO();
-		ArrayList<StudentDTO> ar = dao.init();
-		dao.addStudent(ar);
-		dao.removeStudent(ar);
-		
-		for(int i=0;i<ar.size();i++) {
-			System.out.println(ar.get(i).getName());
-		}
+		StudentController sc = new StudentController();
+		sc.start();
 		
 //		int[] nums = new int[3];
 //		for(int n:nums) {
@@ -27,9 +21,9 @@ public class Ex1Main {
 //		}
 		//향상된 for
 		//for(요소의자료형 변수 : 자료구조이름)
-		for (StudentDTO studentDTO : ar) {
-			
-		}
+//		for (StudentDTO studentDTO : ar) {
+//			
+//		}
 	}
 
 }
