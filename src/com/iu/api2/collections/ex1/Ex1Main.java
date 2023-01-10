@@ -10,6 +10,8 @@ public class Ex1Main {
 		//4.학생정보추가
 		//5.학생정보삭제(이름)
 		//6.프로그램 종료
+		StudentDAO st = new StudentDAO();
+		st.init();
 	}
 
 }
