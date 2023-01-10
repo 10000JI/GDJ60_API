@@ -1,7 +1,6 @@
 package com.iu.api2.collections.ex1;
 
 public class StudentDTO {
-
 	private String name;
 	private int num;
 	private int kor;

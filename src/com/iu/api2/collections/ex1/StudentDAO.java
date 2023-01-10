@@ -37,7 +37,8 @@ public class StudentDAO {
 			studentDTO.setKor(Integer.parseInt(st.nextToken()));
 			studentDTO.setEng(Integer.parseInt(st.nextToken()));
 			studentDTO.setMath(Integer.parseInt(st.nextToken()));
-			studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()+studentDTO.getMath());
+			studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()
+				+studentDTO.getMath());
 			studentDTO.setAvg(studentDTO.getTotal()/3.0);
 			ar.add(studentDTO);
 		}
@@ -73,7 +74,8 @@ public class StudentDAO {
 		studentDTO.setEng(sc.nextInt());
 		System.out.print("수학점수를 입력하세요: ");
 		studentDTO.setMath(sc.nextInt());
-		studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()+studentDTO.getMath());
+		studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()
+			+studentDTO.getMath());
 		studentDTO.setAvg(studentDTO.getTotal()/3.0);
 		ar.add(studentDTO);
 	}

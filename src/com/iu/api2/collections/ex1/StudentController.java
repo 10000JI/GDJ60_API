@@ -62,10 +62,8 @@ public class StudentController {
 			default:
 				check=false;
 				//반복문 종료
-				
 				break;
 			}
 		}
 	}
-
 }
