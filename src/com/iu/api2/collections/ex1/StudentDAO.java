@@ -1,6 +1,11 @@
 package com.iu.api2.collections.ex1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -107,5 +112,37 @@ public class StudentDAO {
 			}
 		}
 		return result;
+	}
+	
+	//6.학생정보백업
+	//현재시간을 파일명으로 해서 파일작성
+	//"name-번호-국어-영어-수학" 형태로
+	//학생정보초기화를 파일에서 읽어서 초기화
+	public void backup() throws IOException {
+		Calendar calendar = Calendar.getInstance();
+		String name = String.valueOf(calendar.getTimeInMillis());
+		ArrayList<StudentDTO> ar;
+		File file = new File("C:\\fileTest",name+".txt");
+		FileWriter fw =null;
+		String str = "name-번호-국어-영어-수학";
+		try {
+			fw = new FileWriter(file,true);
+			fw.write(str+"\r\n");
+			fw.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ar = init();
+		for(int i=0;i<ar.size();i++) {
+			for(StudentDTO dto:ar) {
+				String st = dto.getName()+"-"+dto.getNum()+"-"+
+						dto.getKor()+"-"+dto.getEng()+"-"+dto.getMath();
+				fw.write(st+"\r\n");
+				fw.flush();
+			}
+		}
+		
 	}
 }
