@@ -2,6 +2,7 @@ package com.iu.api2.collections.ex1;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,27 +26,62 @@ public class StudentDAO {
 	
 	//학생정보초기화
 	public ArrayList<StudentDTO> init() {
-		//독립적이지 않은 데이터 => split()보다는 StringTokenizer 사용
-		//StirngTokenzier는 매개변수에 String 들어감
-		//=> StringBuffer타입인 sb를 String으로 변환(toString)
-		String data = this.sb.toString();
-		data = data.replace(" ", "-");
-		data = data.replace(",", "");
+		//백업시킨 내용 가져오기
+		//1. 파일정보 File
+		File file = new File("C:\\fileTest");
 		
-		System.out.println(data);
-		StringTokenizer st = new StringTokenizer(data,"-");
+		//!폴더명이 시간(밀리초)으로 설정되어 있을때, 최근에 저장된 파일 리턴!
+		//file.list(): 폴더 이름을 String[]으로 리턴
+		//폴더 안에 있는 파일들 리턴
+		String [] names = file.list();
+		long max = 0;
+		for(String name:names) {
+			name = name.substring(0,name.lastIndexOf("."));
+			long date = Long.parseLong(name);
+			if(date>max) {
+				max = date;
+			}
+		}
+		
+		file = new File(file, max+".txt");		
+		
+		//2. 파일내용을 읽기 위해서 연결 준비
+		//나중에 close() 해주기 위해 (Finally문에서)
+		//Exception이 발생하든 아니든 close() 해줌
+		FileReader fr = null;
+		
+		//하나의 큰 문자열을 읽지 못하기 때문에
+		//BufferedReader 써준다
+		BufferedReader br = null;
+		
 		ArrayList<StudentDTO> ar = new ArrayList<>();
-		while(st.hasMoreTokens()) {
-			StudentDTO studentDTO = new StudentDTO();
-			studentDTO.setName(st.nextToken());
-			studentDTO.setNum(Integer.parseInt(st.nextToken()));
-			studentDTO.setKor(Integer.parseInt(st.nextToken()));
-			studentDTO.setEng(Integer.parseInt(st.nextToken()));
-			studentDTO.setMath(Integer.parseInt(st.nextToken()));
-			studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()
+		try {
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			String data = null;
+			while((data=br.readLine())!=null){
+				data = data.replace(" ", "-");
+				data = data.replace(",", "");
+				StringTokenizer st = new StringTokenizer(data,"-");
+				StudentDTO studentDTO = new StudentDTO();
+				studentDTO.setName(st.nextToken());
+				studentDTO.setNum(Integer.parseInt(st.nextToken()));
+				studentDTO.setKor(Integer.parseInt(st.nextToken()));
+				studentDTO.setEng(Integer.parseInt(st.nextToken()));
+				studentDTO.setMath(Integer.parseInt(st.nextToken()));
+				studentDTO.setTotal(studentDTO.getKor()+studentDTO.getEng()
 				+studentDTO.getMath());
-			studentDTO.setAvg(studentDTO.getTotal()/3.0);
-			ar.add(studentDTO);
+				studentDTO.setAvg(studentDTO.getTotal()/3.0);
+				ar.add(studentDTO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				br.close();
+				fr.close();
+			}catch(Exception e) {
+			}
 		}
 		return ar;
 	}
@@ -118,28 +154,71 @@ public class StudentDAO {
 	//현재시간을 파일명으로 해서 파일작성
 	//"name-번호-국어-영어-수학" 형태로
 	//학생정보초기화를 파일에서 읽어서 초기화
-	public void backup() throws IOException {
+	public void studentBackUp(ArrayList<StudentDTO> ar) {
 		Calendar calendar = Calendar.getInstance();
-		String name = String.valueOf(calendar.getTimeInMillis());
-		ArrayList<StudentDTO> ar;
-		File file = new File("C:\\fileTest",name+".txt");
-		FileWriter fw =null;
-		String str = "name-번호-국어-영어-수학";
+		long time = calendar.getTimeInMillis();
+		
+		File file = new File("C:\\fileTest", time+".txt");
+		
+		FileWriter fw = null;
+		
 		try {
-			fw = new FileWriter(file,true);
-			fw.write(str+"\r\n");
-			fw.flush();
+			fw = new FileWriter(file);
+			
+			for(StudentDTO studentDTO:ar) {
+				StringBuffer sb = new StringBuffer();
+				sb.append(studentDTO.getName());
+				sb.append("-");
+				sb.append(studentDTO.getNum());
+				sb.append("-");
+				sb.append(studentDTO.getKor());
+				sb.append("-");
+				sb.append(studentDTO.getEng());
+				sb.append("-");
+				sb.append(studentDTO.getMath());
+				sb.append("\r\n");
+				//append 시킨 StringBuffer를 toString 문자열로 바꾸기
+				fw.write(sb.toString());
+				fw.flush();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		ar = init();
-		for (StudentDTO dto : ar) {
-			String st = dto.getName() + "-" + dto.getNum() + "-" + dto.getKor() + "-" + dto.getEng() + "-"
-					+ dto.getMath();
-			fw.write(st + "\r\n");
-			fw.flush();
+		}finally {
+			//위에서 아래로 close 해준다(역순)
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
+	
+	
+	
+//	public void backup() throws IOException {
+//		Calendar calendar = Calendar.getInstance();
+//		String name = String.valueOf(calendar.getTimeInMillis());
+//		ArrayList<StudentDTO> ar;
+//		File file = new File("C:\\fileTest",name+".txt");
+//		FileWriter fw =null;
+//		String str = "name-번호-국어-영어-수학";
+//		try {
+//			fw = new FileWriter(file,true);
+//			fw.write(str+"\r\n");
+//			fw.flush();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		ar = init();
+//		for (StudentDTO dto : ar) {
+//			String st = dto.getName() + "-" + dto.getNum() + "-" + dto.getKor() + "-" + dto.getEng() + "-"
+//					+ dto.getMath();
+//			fw.write(st + "\r\n");
+//			fw.flush();
+//		}
+//	}
 	
 }

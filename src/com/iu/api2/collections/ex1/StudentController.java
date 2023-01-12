@@ -60,6 +60,9 @@ public class StudentController {
 				}
 				//view에 값이 없더라도 출력
 				break;
+			case 6:
+				studentDAO.studentBackUp(ar);
+				break;
 			default:
 				check=false;
 				//반복문 종료
