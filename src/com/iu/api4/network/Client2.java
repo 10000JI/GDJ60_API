@@ -57,10 +57,19 @@ public class Client2 {
 				}
 			}
 		}catch(Exception e) {
-			
+			e.printStackTrace();
+		}finally {
+			try {
+				br.close();
+				is.close();
+				bw.close();
+				ow.close();
+				os.close();
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		
-		
 	}	
 }
