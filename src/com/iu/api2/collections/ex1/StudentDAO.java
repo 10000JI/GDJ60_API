@@ -133,16 +133,13 @@ public class StudentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		ar = init();
-		for(int i=0;i<ar.size();i++) {
-			for(StudentDTO dto:ar) {
-				String st = dto.getName()+"-"+dto.getNum()+"-"+
-						dto.getKor()+"-"+dto.getEng()+"-"+dto.getMath();
-				fw.write(st+"\r\n");
-				fw.flush();
-			}
+		for (StudentDTO dto : ar) {
+			String st = dto.getName() + "-" + dto.getNum() + "-" + dto.getKor() + "-" + dto.getEng() + "-"
+					+ dto.getMath();
+			fw.write(st + "\r\n");
+			fw.flush();
 		}
-		
 	}
+	
 }
