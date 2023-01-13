@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class ServerController {
 		ServerSocket ss = null;
@@ -50,17 +51,19 @@ public class ServerController {
 			while(check) {
 				String data = br.readLine();
 				String data1 = null;
+				String data2 = null;
 				int select = 0;
+				ar = serverDAO.init();
+				
 				if(data.indexOf("-")!=-1) {
 					data1 = data.substring(0,data.indexOf("-"));
-					select = Integer.parseInt(data1);
+					select = Integer.parseInt(data1);;
 				}else {
 					select = Integer.parseInt(data);
 				}
 				
 				switch(select) {
 				case 1:
-					ar = serverDAO.init();
 					StringBuffer sb = serverView.view(ar);
 					String str = sb.toString();
 					bw.write(str+"\r\n");
@@ -88,13 +91,27 @@ public class ServerController {
 					}
 					break;
 				case 3:
-//					ServerDTO studentDTO = serverDAO.findByName(ar);
-//					if(serverDTO != null) {
-//						serverView.view(studentDTO);
-//					}else {
-//						serverView.view("찾는 학생이 없다");
-//					}
-//					//view에 출력하도록, 값이 없더라도 출력
+					data2 = data.substring(data.indexOf("-")+1);
+					StringTokenizer st = new StringTokenizer(data2,"-");
+					while(st.hasMoreTokens()) {
+						ServerDTO serverDTO = new ServerDTO();
+					
+						String t1 = st.nextToken();
+						serverDTO.setName(t1);
+						String t2 = st.nextToken();
+						serverDTO.setNum(Integer.parseInt(t2));
+						String t3 = st.nextToken();
+						serverDTO.setKor(Integer.parseInt(t3));
+						String t4 = st.nextToken();
+						serverDTO.setEng(Integer.parseInt(t4));
+						String t5 = st.nextToken();
+						serverDTO.setMath(Integer.parseInt(t5));
+						ar.add(serverDTO);
+					}
+					str = "추가되었습니다.";
+					bw.write(str+"\r\n");
+					bw.flush();
+					
 					break;
 				case 4:
 					//serverDAO.addStudent(ar);
