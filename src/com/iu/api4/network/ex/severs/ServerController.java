@@ -51,7 +51,6 @@ public class ServerController {
 			while(check) {
 				String data = br.readLine();
 				String data1 = null;
-				String data2 = null;
 				int select = 0;
 				ar = serverDAO.init();
 				
@@ -91,24 +90,15 @@ public class ServerController {
 					}
 					break;
 				case 3:
-					data2 = data.substring(data.indexOf("-")+1);
-					StringTokenizer st = new StringTokenizer(data2,"-");
-					while(st.hasMoreTokens()) {
-						ServerDTO serverDTO = new ServerDTO();
-					
-						String t1 = st.nextToken();
-						serverDTO.setName(t1);
-						String t2 = st.nextToken();
-						serverDTO.setNum(Integer.parseInt(t2));
-						String t3 = st.nextToken();
-						serverDTO.setKor(Integer.parseInt(t3));
-						String t4 = st.nextToken();
-						serverDTO.setEng(Integer.parseInt(t4));
-						String t5 = st.nextToken();
-						serverDTO.setMath(Integer.parseInt(t5));
-						ar.add(serverDTO);
-					}
-					str = "추가되었습니다.";
+					data = data.substring(data.indexOf("-")+1);
+					ServerDTO serverDTO = new ServerDTO();
+					String [] s = data.split("-");
+					serverDTO.setName(s[0]);
+					serverDTO.setNum(Integer.parseInt(s[1]));
+					serverDTO.setKor(Integer.parseInt(s[2]));
+					serverDTO.setEng(Integer.parseInt(s[3]));
+					serverDTO.setMath(Integer.parseInt(s[4]));
+					str = serverView.view(serverDTO).toString();
 					bw.write(str+"\r\n");
 					bw.flush();
 					
