@@ -20,56 +20,41 @@ public class Client2 {
 		//3번 : 서버 클라이언트 모두 종료
 		Socket socket = null;
 		OutputStream os = null;
-		InputStream is = null;
 		OutputStreamWriter ow = null;
-		InputStreamReader ir = null;
 		BufferedWriter bw = null;
+		InputStream is = null;
+		InputStreamReader ir = null;
 		BufferedReader br = null;
-		String msg =null;
 		Scanner sc = new Scanner(System.in);
 		try {
 			socket = new Socket("127.0.0.1",8282);
+			
+			//읽을 준비를 하는 것이기에 미리 준비해도 된다
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			//쓸 준비를 하는 것이기에 미리 준비해도 된다
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
 			while(true) {
-				os = socket.getOutputStream();
-				ow = new OutputStreamWriter(os);
-				bw = new BufferedWriter(ow);
 				System.out.println("1.점심 2.저녁 3.종료");
-				msg = sc.next();
-				bw.write(msg+"\r\n");
+				int select = sc.nextInt();
+				bw.write(select+"\r\n");
 				bw.flush();
 				
-				if(msg.equals("1")) {
-					is = socket.getInputStream();
-					ir = new InputStreamReader(is);
-					br = new BufferedReader(ir);
-					msg = br.readLine();
-					System.out.println("점심메뉴: " + msg);
-				}else if(msg.equals("2")) {
-					is = socket.getInputStream();
-					ir = new InputStreamReader(is);
-					br = new BufferedReader(ir);
-					msg = br.readLine();
-					System.out.println("저녁메뉴: " + msg);
-					
-				}else if(msg.equals("3")) {
-					System.out.println("종료합니다.");
+				if(select == 3) {
+					System.out.println("프로그램을 종료합니다.");
 					break;
 				}
+				
+				String menu = br.readLine();
+				System.out.println("오늘 메뉴는: "+menu);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				br.close();
-				is.close();
-				bw.close();
-				ow.close();
-				os.close();
-				socket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}	
 }

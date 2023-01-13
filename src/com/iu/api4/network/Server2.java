@@ -22,69 +22,67 @@ public class Server2 {
 		//3. 종료
 		ServerSocket ss = null;
 		Socket sc = null;
+		
 		InputStream is = null;
-		OutputStream os = null;
 		InputStreamReader ir = null;
-		OutputStreamWriter ow = null;
 		BufferedReader br = null;
+		
+		OutputStream os = null;
+		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
-		String msg = null;
-		Calendar calendar = Calendar.getInstance();
-		Random random = new Random(calendar.getTimeInMillis());
-		Scanner scanner = new Scanner(System.in);
-				
+		
+		String[] lunch = {"짜장면","짬뽕","탕수육","볶음밥"};
+		String[] dinner = {"카레","가츠동","규동","라멘"};
+		boolean check = true;
+		
+		
 		try {
 			ss = new ServerSocket(8282);
 			sc = ss.accept();
-			while(true) {
-				is = sc.getInputStream();
-				ir = new InputStreamReader(is);
-				br = new BufferedReader(ir);
-				msg = br.readLine();
-				if(msg.equals("1")) {
-					String[] lunch = {"짜장면","짬뽕","탕수육","볶음밥"};
-					int idx = random.nextInt(4);
-					msg = lunch[idx];
-					System.out.println("점심(중국집): "+msg);
-					os = sc.getOutputStream();
-					ow = new OutputStreamWriter(os);
-					bw = new BufferedWriter(ow);
-					bw.write(msg + "\r\n");
-					bw.flush();
-				}else if(msg.equals("2")) {
-					String[] lunch = {"카레","가츠동","규동","라멘"};
-					int idx = random.nextInt(4);
-					msg = lunch[idx];
-					System.out.println("저녁(일식): "+msg);
-					os = sc.getOutputStream();
-					ow = new OutputStreamWriter(os);
-					bw = new BufferedWriter(ow);
-					bw.write(msg + "\r\n");
-					bw.flush();
-					
-				}else if(msg.equals("3")) {
-					System.out.println("종료합니다.");
+			
+			//읽을 준비를 하는 것이기에 미리 준비해도 된다
+			is = sc.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			//쓸 준비를 하는 것이기에 미리 준비해도 된다
+			os = sc.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
+			while (check) {
+				// ★★★네트워크로 받은 정보는 모두 String★★★
+				String data = br.readLine();
+				int select = Integer.parseInt(data);
+
+				// while문 동작할때마다 현재시간 밀리초로 반환
+				Calendar calendar = Calendar.getInstance();
+				Random random = new Random(calendar.getTimeInMillis());
+
+				String menu = null;
+
+				switch (select) {
+				case 1:
+					select = random.nextInt(4);
+					menu = lunch[select];
 					break;
+				case 2:
+					select = random.nextInt(4);
+					menu = dinner[select];
+					break;
+				default:
+					System.out.println("서버 프로그램을 종료합니다.");
+					//check = !check;
+					check = false;
+				}
+				if(check) {
+					bw.write(menu+"\r\n");
+					bw.flush();
 				}
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			try {
-				bw.close();
-				ow.close();
-				os.close();
-				
-				br.close();
-				ir.close();
-				is.close();
-				
-				ss.close();
-				sc.close();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 }
