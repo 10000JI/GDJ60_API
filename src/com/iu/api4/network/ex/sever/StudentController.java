@@ -16,14 +16,7 @@ public class StudentController {
 	private Socket socket;
 	private StudentDAO studentDAO;
 	
-	public void start() throws Exception {
-		ss = new ServerSocket(8282);
-		socket = ss.accept();
-		studentDAO = new StudentDAO();
-		
-		//초기화해서 미리 준비해 놓자
-		ArrayList<StudentDTO> ar = studentDAO.init();
-		
+	public void start()  {
 		InputStream is = null;
 		InputStreamReader ir = null;
 		BufferedReader br = null;
@@ -32,44 +25,56 @@ public class StudentController {
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
 		
-		is = socket.getInputStream();
-		ir = new InputStreamReader(is);
-		br = new BufferedReader(ir);
 		
-		os = socket.getOutputStream();
-		ow = new OutputStreamWriter(os);
-		bw = new BufferedWriter(ow);
-		boolean check = true;
-		
-		while(check) {
-			String select = br.readLine();
-			String [] s = select.split(":");
+		try {
+			ss = new ServerSocket(8282);
+			socket = ss.accept();
+			studentDAO = new StudentDAO();
 			
-			switch(s[0]) {
-			case "1":
-				//1:
-				select = studentDAO.makeList(ar);
+			//초기화해서 미리 준비해 놓자
+			ArrayList<StudentDTO> ar = studentDAO.init();
+			
+			
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			boolean check = true;
+			
+			while(check) {
+				String select = br.readLine();
+				String [] s = select.split(":");
 				
-				break;
-			case "2":
-				//2:iu
-				//select = studentDAO.findbyname(ar,s[1]);
-				break;
-			case "3":
-				//3:iu-숫자-국-영-수
-				//select = studentDAO.addStudent(ar,s[1]);
-				break;
-			case "4":
-				break;
+				switch(s[0]) {
+				case "1":
+					//1:
+					select = studentDAO.makeList(ar);
+					break;
+				case "2":
+					//2:iu
+					select = studentDAO.findByName(ar,s[1]);
+					break;
+				case "3":
+					//3:iu:숫자:국:영:수
+					select = studentDAO.addStudent(ar,s[1],s[2],s[3],s[4],s[5]);
+					break;
+				case "4":
+					select = studentDAO.removeStudent(ar, s[1]);
+					break;
 				default:
-					
 					check=false;
-					
+				}
+				if(check) {
+					bw.write(select+"\r\n");
+					bw.flush();
+				}
 			}
-			if(check) {
-				bw.write(select+"\r\n");
-				bw.flush();
-			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

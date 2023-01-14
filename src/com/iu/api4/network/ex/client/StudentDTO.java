@@ -1,4 +1,4 @@
-package com.iu.api4.network.ex.sever;
+package com.iu.api4.network.ex.client;
 
 public class StudentDTO {
 	private String name;
@@ -50,5 +50,4 @@ public class StudentDTO {
 	public void setAvg(double avg) {
 		this.avg = avg;
 	}
-	
 }
