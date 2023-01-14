@@ -58,32 +58,27 @@ public class ClentMain {
 				case "1":
 					//1:
 					System.out.println("전체학생정보출력");
-					data = br.readLine();
-					studentView.view(studentDAO.init(data));
-					
 					break;
 				case "2":
 					//2:iu
 					//select = studentDAO.findbyname(ar,s[1]);
 					System.out.println("학생정보검색출력");
-					data = br.readLine();
-					studentView.view(studentDAO.init(data));
 					break;
 				case "3":
 					//3:iu:숫자:국:영:수
 					//select = studentDAO.addStudent(ar,s[1]);
 					System.out.println("학생정보추가");
-					data = br.readLine();
-					studentView.view(studentDAO.init(data));
 					break;
 				case "4":
 					System.out.println("학생정보삭제");
-					data = br.readLine();
-					studentView.view(studentDAO.init(data));
 					break;
 				default:
 					System.out.println("종료합니다.");
 					check=false;	
+				}
+				if(check) {
+					data = br.readLine();
+					studentView.view(studentDAO.init(data));
 				}
 			}
 		} catch (Exception e) {
