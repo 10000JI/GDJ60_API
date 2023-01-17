@@ -1,9 +1,6 @@
 package com.iu.api5.thread;
 
 public class ThreadTest1 extends Thread{
-	
-	
-	
 	@Override
 	public void run() {
 		this.t1();

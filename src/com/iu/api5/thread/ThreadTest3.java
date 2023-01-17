@@ -1,7 +1,6 @@
 package com.iu.api5.thread;
 
 public class ThreadTest3 implements Runnable {
-	
 	@Override
 	public void run() {
 		this.t3();

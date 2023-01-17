@@ -1,6 +1,11 @@
 package com.iu.api5.thread;
 
 public class ThreadTest4 implements Runnable{
+	@Override
+	public void run() {
+		this.t4();
+	}
+	
 	public void t4() {
 		for(int i =0;i<25;i++) {
 			System.out.println("World:"+i);
@@ -11,10 +16,5 @@ public class ThreadTest4 implements Runnable{
 				e.printStackTrace();
 			}
 		}
-	}
-
-	@Override
-	public void run() {
-		this.t4();
 	}
 }
